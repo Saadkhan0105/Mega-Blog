@@ -1,19 +1,19 @@
-import React from 'react'
-import {Editor } from '@tinymce/tinymce-react';
-import {Controller } from 'react-hook-form';
+import {Controller} from 'react-hook-form'
+import { Editor } from "@tinymce/tinymce-react";  
+import conf from '../conf/conf'
 
+function RTE({name, control, label, defaultValue=""}) {
 
-export default function RTE({name, control, label, defaultValue =""}) {
   return (
-    <div className='w-full'> 
-    {label && <label className='inline-block mb-1 pl-1'>{label}</label>}
-
-    <Controller
-    name={name || "content"}
-    control={control}
-    render={({field: {onChange}}) => (
-        <Editor
-        apiKey='zyzkn1g5ygfki1nbol1j4wki0y4nac7l2a7p408btiowu8rw'
+    <div className='w-full'>
+        {label && <label className='inline-block mb-1 pl-1'>{label}</label>}
+        <Controller 
+        name={name || "content"}
+        control={control}
+        defaultValue={defaultValue}
+        render={({field : {onChange}}) => (
+            <Editor
+            apiKey={conf.tineymceKey}
         initialValue={defaultValue}
         init={{
             initialValue: defaultValue,
@@ -42,14 +42,15 @@ export default function RTE({name, control, label, defaultValue =""}) {
                 "anchor",
             ],
             toolbar:
-            "undo redo | blocks | image | bold italic forecolor | alignleft aligncenter bold italic forecolor | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent |removeformat | help",
+            "undo redo | blocks |link image| fontfamily fontsize | bold italic underline strikethrough| forecolor backcolor | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent |removeformat | help",
             content_style: "body { font-family:Helvetica,Arial,sans-serif; font-size:14px }"
         }}
         onEditorChange={onChange}
         />
     )}
     />
-
-     </div>
+    </div>
   )
 }
+
+export default RTE
